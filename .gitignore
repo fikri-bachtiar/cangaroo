@@ -35,3 +35,6 @@ Makefile*
 
 
 test.dbc
+build*/
+CMakeLists.txt.user
+cangaroo.exe
