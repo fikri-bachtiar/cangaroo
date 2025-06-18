@@ -490,7 +490,7 @@ bool SLCANInterface::readMessage(QList<CanMessage> &msglist, unsigned int timeou
         // This is called when readyRead() is emitted
         QByteArray datas = _serport->readAll();
         _rxbuf_mutex.lock();
-        for(int i=0; i<datas.count(); i++)
+        for(int i=0; i<datas.size(); i++)
         {
             // If incrementing the head will hit the tail, we've filled the buffer. Reset and discard all data.
             if(((_rxbuf_head + 1) % RXCIRBUF_LEN) == _rxbuf_tail)

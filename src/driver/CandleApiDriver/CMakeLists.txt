@@ -34,4 +34,4 @@ endif()
 
 # CFLAGS equivalent (QMAKE_CFLAGS += -std=gnu11)
 # Only needed if compiling C files with specific standard
-set_sour_
+# set_sour_
