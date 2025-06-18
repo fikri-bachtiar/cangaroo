@@ -24,6 +24,12 @@
 
 int main(int argc, char *argv[])
 {
+#ifdef __linux__
+    qputenv("GTK_THEME", "adwaita:light");
+#elif _WIN32
+    qputenv("QT_QPA_PLATFORM", "windows:darkmode=0");
+#endif
+
     QApplication a(argc, argv);
     MainWindow w;
 

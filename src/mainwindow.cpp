@@ -20,7 +20,7 @@
 */
 
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "src/ui_mainwindow.h"
 
 #include <QtWidgets>
 #include <QMdiArea>
@@ -115,13 +115,16 @@ Backend &MainWindow::backend()
     return Backend::instance();
 }
 
-QMainWindow *MainWindow::createTab(QString title)
+QMainWindow* MainWindow::createTab(QString title)
 {
-    QMainWindow *mm = new QMainWindow(this);
-    QPalette pal(palette());
-    pal.setColor(QPalette::Background, QColor(0xeb, 0xeb, 0xeb));
+    QMainWindow* mm = new QMainWindow(this);
+
+    // Qt 6 palette handling - Background role changed to Window
+    QPalette pal = mm->palette();
+    pal.setColor(QPalette::Window, QColor(0xeb, 0xeb, 0xeb));
     mm->setAutoFillBackground(true);
     mm->setPalette(pal);
+
     ui->mainTabs->addTab(mm, title);
     return mm;
 }
@@ -463,7 +466,8 @@ void MainWindow::saveTraceToFile()
 
     QFileDialog fileDialog(0, "Save Trace to file", QDir::currentPath(), filters);
     fileDialog.setAcceptMode(QFileDialog::AcceptSave);
-    fileDialog.setConfirmOverwrite(true);
+    // fileDialog.setConfirmOverwrite(true);
+    fileDialog.setOption(QFileDialog::DontConfirmOverwrite, false);
     fileDialog.selectNameFilter(defaultFilter);
     fileDialog.setDefaultSuffix("asc");
     if (fileDialog.exec()) {

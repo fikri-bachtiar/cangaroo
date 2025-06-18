@@ -325,9 +325,9 @@ QDateTime CanMessage::getDateTime() const
 QString CanMessage::getIdString() const
 {
     if (isExtended()) {
-        return QString().sprintf("0x%08X", getId());
+        return QString().asprintf("0x%08X", getId());
     } else {
-        return QString().sprintf("0x%03X", getId());
+        return QString().asprintf("0x%03X", getId());
     }
 }
 
@@ -339,7 +339,7 @@ QString CanMessage::getDataHexString() const
     QString outstr = "";
     for(int i=0; i<getLength(); i++)
     {
-        outstr += QString().sprintf("%02X ", getByte(i));
+        outstr += QString().asprintf("%02X ", getByte(i));
     }
 
     return outstr;

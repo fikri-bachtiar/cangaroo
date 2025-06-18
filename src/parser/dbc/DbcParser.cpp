@@ -91,30 +91,27 @@ DbcToken *DbcParser::createNewToken(QChar ch, int line, int column)
 
 DbcParser::error_t DbcParser::tokenize(QFile *file, DbcParser::DbcTokenList &tokens)
 {
-
     if (!file->open(QIODevice::ReadOnly)) {
         // TODO raise cannot open file exception
         return err_cannot_open_file;
     }
 
-    DbcToken *currentToken = 0;
+    DbcToken *currentToken = nullptr;
     int line = 1;
     int column = 0;
 
     error_t retval = err_ok;
 
-    QTextStream in(file);
-    in.setCodec("ISO 8859-1");
+    // Read raw bytes, convert to Latin-1 string
+    QByteArray rawData = file->readAll();
+    QString content = QString::fromLatin1(rawData);  // ISO 8859-1 = Latin-1
 
-    while (true) {
-        QString s = in.read(1);
-        if (s.isEmpty()) { break; }
+    for (int i = 0; i < content.size(); ++i) {
+        QChar ch = content[i];
 
-        QChar ch = s[0];
-
-        if (ch=='\n') {
+        if (ch == '\n') {
             line++;
-            column=1;
+            column = 1;
         } else {
             column++;
         }
@@ -122,7 +119,7 @@ DbcParser::error_t DbcParser::tokenize(QFile *file, DbcParser::DbcTokenList &tok
         if (currentToken) {
             if (!currentToken->appendChar(ch)) {
                 tokens.append(currentToken);
-                currentToken = 0;
+                currentToken = nullptr;
             }
         }
 
@@ -137,12 +134,12 @@ DbcParser::error_t DbcParser::tokenize(QFile *file, DbcParser::DbcTokenList &tok
                 break;
             }
         }
-
     }
 
     file->close();
     return retval;
 }
+
 
 bool DbcParser::isSectionEnding(DbcToken *token, bool newLineIsSectionEnding)
 {

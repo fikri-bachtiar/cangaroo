@@ -93,17 +93,16 @@ QVariant LogModel::headerData(int section, Qt::Orientation orientation, int role
 
 QVariant LogModel::data(const QModelIndex &index, int role) const
 {
-
     if (role == Qt::TextAlignmentRole) {
         switch (index.column()) {
-            case column_time:
-                return Qt::AlignRight + Qt::AlignVCenter;
-            case column_level:
-                return Qt::AlignCenter + Qt::AlignVCenter;
-            case column_text:
-                return Qt::AlignLeft + Qt::AlignVCenter;
-            default:
-                return QVariant();
+        case column_time:
+            return QVariant(Qt::AlignRight | Qt::AlignVCenter);
+        case column_level:
+            return QVariant(Qt::AlignCenter | Qt::AlignVCenter);
+        case column_text:
+            return QVariant(Qt::AlignLeft | Qt::AlignVCenter);
+        default:
+            return QVariant();
         }
     }
 
@@ -115,20 +114,18 @@ QVariant LogModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    LogItem *item = _items.value(index.row(), 0);
+    LogItem *item = _items.value(index.row(), nullptr);
     if (item) {
-
         switch (index.column()) {
-            case column_time:
-                return item->dt.toString("hh:mm:ss");
-            case column_level:
-                return logLevelText(item->level);
-            case column_text:
-                return item->text;
-            default:
-                return QVariant();
+        case column_time:
+            return item->dt.toString("hh:mm:ss");
+        case column_level:
+            return logLevelText(item->level);
+        case column_text:
+            return item->text;
+        default:
+            return QVariant();
         }
-
     }
     return QVariant();
 }
