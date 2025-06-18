@@ -9,7 +9,8 @@ qt6_wrap_ui(canstatuswindow_ui
 target_sources(cangaroo PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/CanStatusWindow.cpp
     ${CMAKE_CURRENT_LIST_DIR}/CanStatusWindow.h
-    # ${canstatuswindow_ui}
+
+    ${CMAKE_CURRENT_LIST_DIR}/CanStatusWindow.ui
 )
 
 # Include directory for this module

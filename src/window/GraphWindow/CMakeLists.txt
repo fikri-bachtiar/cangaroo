@@ -9,7 +9,8 @@ qt6_wrap_ui(graphwindow_ui
 target_sources(cangaroo PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/GraphWindow.cpp
     ${CMAKE_CURRENT_LIST_DIR}/GraphWindow.h
-    # ${graphwindow_ui}
+
+    ${CMAKE_CURRENT_LIST_DIR}/GraphWindow.ui
 )
 
 # Include this directory

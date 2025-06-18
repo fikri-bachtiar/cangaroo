@@ -9,7 +9,8 @@ qt6_wrap_ui(rawtxwindow_ui
 target_sources(cangaroo PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/RawTxWindow.cpp
     ${CMAKE_CURRENT_LIST_DIR}/RawTxWindow.h
-    # ${rawtxwindow_ui}
+
+    ${CMAKE_CURRENT_LIST_DIR}/RawTxWindow.ui
 )
 
 # Include this directory for header resolution

@@ -17,7 +17,7 @@ target_sources(cangaroo PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/CanTiming.h
     ${CMAKE_CURRENT_LIST_DIR}/GenericCanSetupPage.h
 
-    # ${driver_ui}
+    ${CMAKE_CURRENT_LIST_DIR}/GenericCanSetupPage.ui
 )
 
 target_include_directories(cangaroo PRIVATE ${CMAKE_CURRENT_LIST_DIR})

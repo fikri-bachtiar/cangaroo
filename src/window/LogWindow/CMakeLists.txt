@@ -9,7 +9,8 @@ qt6_wrap_ui(logwindow_ui
 target_sources(cangaroo PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/LogWindow.cpp
     ${CMAKE_CURRENT_LIST_DIR}/LogWindow.h
-    # ${logwindow_ui}
+
+    ${CMAKE_CURRENT_LIST_DIR}/LogWindow.ui
 )
 
 # Include this directory

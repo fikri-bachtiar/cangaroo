@@ -18,7 +18,8 @@ target_sources(cangaroo PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/SetupDialogTreeItem.h
     ${CMAKE_CURRENT_LIST_DIR}/SelectCanInterfacesDialog.h
 
-    # ${setupdialog_ui}
+    ${CMAKE_CURRENT_LIST_DIR}/SetupDialog.ui
+    ${CMAKE_CURRENT_LIST_DIR}/SelectCanInterfacesDialog.ui
 )
 
 # Add include path

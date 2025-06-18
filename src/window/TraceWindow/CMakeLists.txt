@@ -22,7 +22,7 @@ target_sources(cangaroo PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/TraceWindow.h
     ${CMAKE_CURRENT_LIST_DIR}/TraceViewTypes.h
 
-    # ${tracewindow_ui}
+    ${CMAKE_CURRENT_LIST_DIR}/TraceWindow.ui
 )
 
 # Add include directory
