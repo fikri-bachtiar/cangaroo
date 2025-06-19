@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(cangaroo LANGUAGES CXX)
+project(cangaroo LANGUAGES C CXX)
 
 # Find required Qt packages
 find_package(Qt6 REQUIRED COMPONENTS
