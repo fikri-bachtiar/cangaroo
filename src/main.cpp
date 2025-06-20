@@ -24,11 +24,11 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-
 #ifdef __linux__
     qputenv("GTK_THEME", "adwaita:light");
+    QApplication a(argc, argv); // need to be declared here
 #elif _WIN32
+    QApplication a(argc, argv);
     qputenv("QT_QPA_PLATFORM", "windows:darkmode=0");
     a.setStyle("windowsvista");
 #endif

@@ -104,7 +104,7 @@ bool CANBlasterDriver::update() {
     }
     fprintf(stderr, "CANblaster: stop listen\r\n");
 
-    fprintf(stderr, "Found %d servers: \r\n", detected_servers.length());
+    fprintf(stderr, "Found %lld servers: \r\n", detected_servers.length());
     int interface_cnt = 0;
 
     for(QString server: detected_servers)
