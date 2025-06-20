@@ -1,23 +1,3 @@
-cmake_minimum_required(VERSION 3.16)
-project(cangaroo LANGUAGES CXX)
-
-# Find required Qt packages
-find_package(Qt6 REQUIRED COMPONENTS
-    Core
-    Gui
-    Widgets
-    Xml
-    Charts
-    SerialPort
-    Network
-    Core5Compat
-)
-
-# Enable automatic moc, uic, and rcc
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTORCC ON)
-
 # Define the main application target
 add_executable(cangaroo)
 
@@ -26,7 +6,7 @@ target_include_directories(cangaroo PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-# Common Qt modules
+# Link Qt modules (already found in root CMakeLists)
 target_link_libraries(cangaroo PRIVATE
     Qt6::Core
     Qt6::Gui
@@ -37,6 +17,11 @@ target_link_libraries(cangaroo PRIVATE
     Qt6::Network
     Qt6::Core5Compat
 )
+
+# Link libusb if the target exists
+if(TARGET usb-1.0)
+    target_link_libraries(cangaroo PRIVATE usb-1.0)
+endif()
 
 # Add subdirectories
 add_subdirectory(core)
@@ -50,11 +35,7 @@ add_subdirectory(window/CanStatusWindow)
 add_subdirectory(window/RawTxWindow)
 
 # Add top-level application files
-set(UIS
-    ${CMAKE_CURRENT_SOURCE_DIR}/mainwindow.ui
-)
-
-qt6_wrap_ui(mainwindow_ui ${UIS})
+qt6_wrap_ui(mainwindow_ui ${CMAKE_CURRENT_SOURCE_DIR}/mainwindow.ui)
 
 target_sources(cangaroo PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
@@ -64,7 +45,7 @@ target_sources(cangaroo PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/cangaroo.qrc
 )
 
-qt6_add_resources(cangaroo cangaroo.qrc)
+qt6_add_resources(cangaroo ${CMAKE_CURRENT_SOURCE_DIR}/cangaroo.qrc)
 
 # Output directories
 set_target_properties(cangaroo PROPERTIES
@@ -75,15 +56,12 @@ set_target_properties(cangaroo PROPERTIES
 
 # Unix-specific settings
 if(UNIX)
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(LIBNL REQUIRED libnl-3.0 libnl-route-3.0)
-    
+    # LIBNL already found in root CMakeLists
     target_include_directories(cangaroo PRIVATE ${LIBNL_INCLUDE_DIRS})
     target_link_libraries(cangaroo PRIVATE ${LIBNL_LIBRARIES})
     
     # Add SocketCAN driver
     add_subdirectory(driver/SocketCanDriver)
-    # target_link_libraries(cangaroo PRIVATE SocketCanDriver)
 endif()
 
 # Windows-specific settings
@@ -91,10 +69,9 @@ if(WIN32)
     target_link_libraries(cangaroo PRIVATE Setupapi Ole32 Winusb)
     # Add CandleApi driver
     add_subdirectory(driver/CandleApiDriver)
-    # target_link_libraries(cangaroo PRIVATE CandleApiDriver)
 endif()
 
 # Common drivers (both Unix and Windows)
 add_subdirectory(driver/CANBlastDriver)
 add_subdirectory(driver/SLCANDriver)
-# target_link_libraries(cangaroo PRIVATE CANBlastDriver SLCANDriver)
+add_subdirectory(driver/CanalystII_Driver)

@@ -38,3 +38,4 @@ test.dbc
 build*/
 CMakeLists.txt.user
 cangaroo.exe
+.vscode
